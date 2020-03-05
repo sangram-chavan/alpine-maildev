@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+echo "Started maildev service..."
+
+exec 2>&1
+exec /opt/maildev/bin/maildev --cfg /opt/maildev/config/maildev.json
