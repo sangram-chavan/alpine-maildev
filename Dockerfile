@@ -1,4 +1,5 @@
-FROM sangram/alpine-node:13.8.0 
+ARG VERSION
+FROM sangram/alpine-mini:${VERSION}
 LABEL   maintainer="Sangram Chavan <schavan@outlook.com>" \
         architecture="amd64/x86_64" 
 
@@ -22,10 +23,14 @@ COPY root/. /
 
 WORKDIR /opt
 
-RUN chmod a+x /etc/service/maildev/run && \
-    apk --update add bash wget && rm -rf /var/cache/apk/* && \
-    wget -qO - https://github.com/sangram-chavan/maildev/archive/master.zip | unzip -q - && \
-    mv maildev-master maildev && cd maildev && chmod 777 bin/maildev && yarn install -s
+RUN apk --update upgrade && \
+    apk add ca-certificates curl && \
+    cd /tmp && \
+    curl -Ls https://github.com/sangram-chavan/maildev/releases/download/1.2.0/alpine.zip | unzip -jno -d /usr/local/bin/ - && \
+    chmod a+x /usr/local/bin/maildev
+
+EXPOSE 1080 1025
 
 HEALTHCHECK --interval=10s --timeout=1s \
   CMD curl -k -f -v http://localhost/healthz || exit 1
+ 
