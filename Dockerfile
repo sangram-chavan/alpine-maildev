@@ -27,7 +27,8 @@ RUN apk --update upgrade && \
     apk add ca-certificates curl && \
     cd /tmp && \
     curl -Ls https://github.com/sangram-chavan/maildev/releases/download/1.2.0/alpine.zip | unzip -jno -d /usr/local/bin/ - && \
-    chmod a+x /usr/local/bin/maildev
+    chmod a+x /etc/service/maildev/run && \
+    chmod a+x /usr/local/bin/maildev 
 
 EXPOSE 1080 1025
 
