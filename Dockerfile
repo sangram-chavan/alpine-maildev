@@ -26,7 +26,12 @@ WORKDIR /opt
 RUN apk --update upgrade && \
     apk add ca-certificates curl && \
     cd /tmp && \
-    curl -Ls https://github.com/sangram-chavan/maildev/releases/download/1.2.0/alpine.zip | unzip -jno -d /usr/local/bin/ - && \
+    curl -L "$(curl -Ls https://api.github.com/repos/sangram-chavan/maildev/releases | \
+    awk '/browser_download_url/ {print $2}' | \
+    sort -ru | \
+    awk '/alpine.zip/ {print; exit}' | \
+    sed -r 's/"(.*)"/\1/')" | \
+    unzip -jno -d /usr/local/bin/ -  && \
     chmod a+x /etc/service/maildev/run && \
     chmod a+x /usr/local/bin/maildev 
 
