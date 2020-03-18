@@ -38,5 +38,5 @@ RUN apk --update upgrade && \
 EXPOSE 1080 1025
 
 HEALTHCHECK --interval=10s --timeout=1s \
-  CMD curl -k -f -v http://localhost/healthz || exit 1
+  CMD curl -k -f -v http://127.0.0.1:1080/healthz || exit 1
  
