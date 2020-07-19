@@ -21,7 +21,7 @@ LABEL   org.label-schema.schema-version="1.0" \
 
 COPY root/. /
 
-WORKDIR /opt
+WORKDIR /etc/maildev
 
 RUN apk --update upgrade && \
     apk add ca-certificates curl && \

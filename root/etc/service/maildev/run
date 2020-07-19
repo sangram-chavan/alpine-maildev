@@ -3,4 +3,4 @@
 echo "Started maildev service..."
 
 exec 2>&1
-exec maildev --cfg /opt/maildev/config.json
+exec maildev --cfg /etc/maildev/config.json
